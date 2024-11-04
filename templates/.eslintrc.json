@@ -1,0 +1,16 @@
+{
+    "extends": ["prettier"],
+    "plugins": ["unused-imports"],
+    "rules": {
+        "no-unused-vars": "off", // 플러그인의 설정을 적용하기위해 기본 룰을 off
+        "no-unused-expressions": "off", // 플러그인의 설정을 적용하기위해 기본 룰을 off
+        "unused-imports/no-unused-imports": "warn", // 사용하지 않는 import 경고 및 제거,
+        "react-hooks/exhaustive-deps": "off", // useEffect의 deps를 빈 배열로 사용할 때 경고를 끔
+        "padding-line-between-statements": [
+            // "use client" 같은 선언문 다음에 import가 오면, 사이에 개행을 추가
+            "warn",
+            { "blankLine": "always", "prev": "directive", "next": "import" }
+        ],
+        "react/no-unescaped-entities": "off"
+    }
+}

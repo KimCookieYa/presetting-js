@@ -1,0 +1,7 @@
+ # 제외할 파일이나 폴더 목록
+ src/
+ node_modules/
+ *.ts
+ *.tsx
+ tsconfig.json
+ add-shebang.js
