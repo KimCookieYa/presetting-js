@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "tsc && node ./add-shebang.js",
-    "publish": "pnpm build && npm publish",
+    "prepublish": "pnpm build",
     "prepare": "husky",
     "format": "prettier --write . --cache"
   },

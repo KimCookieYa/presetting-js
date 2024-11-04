@@ -137,7 +137,9 @@ const setupHusky = (packageManager) => {
         const proc = (0, child_process_1.spawn)(
           packageManager,
           ['exec', ...cmdArgs],
-          { stdio: 'inherit' },
+          {
+            stdio: 'inherit',
+          },
         );
         proc.on('close', (code) => {
           if (code !== 0) {
