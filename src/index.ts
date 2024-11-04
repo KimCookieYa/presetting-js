@@ -40,7 +40,9 @@ const installDependencies = (packageManager: string): Promise<void> => {
 
     const args = installCommands[packageManager];
     if (!args) {
-      return reject(new Error(`지원하지 않는 패키지 매니저입니다: ${packageManager}`));
+      return reject(
+        new Error(`지원하지 않는 패키지 매니저입니다: ${packageManager}`),
+      );
     }
 
     const installProcess = spawn(packageManager, args, { stdio: 'inherit' });
@@ -96,15 +98,23 @@ const setupHusky = (packageManager: string): Promise<void> => {
 
     const commands = huskyCommands[packageManager];
     if (!commands) {
-      return reject(new Error(`지원하지 않는 패키지 매니저입니다: ${packageManager}`));
+      return reject(
+        new Error(`지원하지 않는 패키지 매니저입니다: ${packageManager}`),
+      );
     }
 
     const runCommand = (cmdArgs: string[]): Promise<void> => {
       return new Promise((resolve, reject) => {
-        const proc = spawn(packageManager, ['exec', ...cmdArgs], { stdio: 'inherit' });
+        const proc = spawn(packageManager, ['exec', ...cmdArgs], {
+          stdio: 'inherit',
+        });
         proc.on('close', (code) => {
           if (code !== 0) {
-            reject(new Error(`명령어 실행 실패: ${packageManager} ${cmdArgs.join(' ')}`));
+            reject(
+              new Error(
+                `명령어 실행 실패: ${packageManager} ${cmdArgs.join(' ')}`,
+              ),
+            );
           } else {
             resolve();
           }
@@ -121,12 +131,33 @@ const setupHusky = (packageManager: string): Promise<void> => {
   });
 };
 
+const updatePackageJsonScripts = (): void => {
+  const packageJsonPath = path.join(process.cwd(), 'package.json');
+
+  try {
+    const packageJsonData = fs.readFileSync(packageJsonPath, 'utf8');
+    const packageJson = JSON.parse(packageJsonData);
+
+    if (!packageJson.scripts) {
+      packageJson.scripts = {};
+    }
+
+    packageJson.scripts.format = 'prettier --write . --cache';
+
+    fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+    console.log('package.json의 scripts 섹션이 업데이트되었습니다.');
+  } catch (error) {
+    console.error('package.json 업데이트 중 오류가 발생했습니다:', error);
+  }
+};
+
 const main = async (): Promise<void> => {
   try {
     const packageManager = await getPackageManager();
     await installDependencies(packageManager);
     copyConfigFiles();
     await setupHusky(packageManager);
+    updatePackageJsonScripts();
     console.log('설정이 완료되었습니다!');
   } catch (error) {
     console.error('오류가 발생했습니다:', error);

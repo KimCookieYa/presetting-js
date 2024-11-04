@@ -1,6 +1,9 @@
 {
   "extends": ["prettier"],
   "plugins": ["unused-imports"],
+  "env": {
+    "es6": true
+  },
   "rules": {
     "no-unused-vars": "off", // 플러그인의 설정을 적용하기위해 기본 룰을 off
     "no-unused-expressions": "off", // 플러그인의 설정을 적용하기위해 기본 룰을 off
