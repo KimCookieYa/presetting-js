@@ -24,13 +24,15 @@
   "author": "KimCookieYa",
   "license": "MIT",
   "description": "",
+  "dependencies": {
+    "inquirer": "^12.0.1"
+  },
   "devDependencies": {
     "@types/node": "^22.8.7",
     "eslint": "8.41.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-unused-imports": "^4.1.4",
     "husky": "^9.1.6",
-    "inquirer": "^12.0.1",
     "lint-staged": "^15.2.10",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
