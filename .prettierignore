@@ -1,0 +1,11 @@
+# .prettierignore
+
+# Ignore all markdown files
+*.md
+
+# Ignore artifacts:
+build
+coverage
+
+prisma/
+prisma2/
